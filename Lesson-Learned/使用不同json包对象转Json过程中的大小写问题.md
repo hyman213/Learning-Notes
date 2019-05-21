@@ -277,3 +277,106 @@ user2  {"cOMPANYNAME":"小米","iD":2,"nAME":"Lisi","rEMARK":"","sEX":"Female"}
 1. 只有在对象属性名全部为大写时，才不会将首字母变为小写，其他情况都会将首字母变成小写
 2. 依然会保留值为null的节点
 
+## 3. 对Date类型的字段格式化的处理
+
+### 3-1. fastjson
+
+默认会将时间转为毫秒值，可使用`JSONObject.toJSONStringWithDateFormat`或者在属性字段上使用`@JSONField(format = "yyyy-MM-dd HH:mm:ss")`
+
+```java
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.Date;
+
+public class JSONUtilsTest {
+
+    public static void main(String[] args) {
+        User user1 = new User(1, "zhangsan", "Male", 18, "华为", null, new Date());
+        User user2 = new User(2, "Lisi", "Female", null, "小米", "", new Date());
+        String jsonString1 = JSONObject.toJSONStringWithDateFormat(user1, "yyyy-MM-dd");
+        String jsonString2 = JSONObject.toJSONString(user2);
+        System.out.println("user1  " + jsonString1);
+        System.out.println("user2  " + jsonString2);
+    }
+
+}
+
+结果：
+user1  {"Age":18,"CompanyName":"华为","Id":1,"Name":"zhangsan","Sex":"Male","birthday":"2019-05-21"}
+user2  {"CompanyName":"小米","Id":2,"Name":"Lisi","Remark":"","Sex":"Female","birthday":1558398124477}
+```
+
+
+
+### 3-2. json-lib
+
+默认会将Date类型的字段分解, 可通过传入`JsonConfig`并注册`JsonValueProcessor`解决这个问题
+
+```java
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+
+import java.util.Date;
+
+public class JSONUtilsTest {
+
+    public static void main(String[] args) {
+        User user1 = new User(1, "zhangsan", "Male", 18, "华为", null, new Date());
+        User user2 = new User(2, "Lisi", "Female", null, "小米", "", new Date());
+        JsonConfig jsonConfig = new JsonConfig();
+        jsonConfig.registerJsonValueProcessor(Date.class, new DateJsonValueProcessor());
+        JSONObject jsonObject1 = JSONObject.fromObject(user1, jsonConfig);
+        JSONObject jsonObject2 = JSONObject.fromObject(user2);
+        System.out.println("user1  " + jsonObject1.toString());
+        System.out.println("user2  " + jsonObject2.toString());
+    }
+
+}
+
+user1  {"age":18,"birthday":"2019-05-21 08:30:53","companyName":"华为","id":1,"name":"zhangsan","remark":"","sex":"Male"}
+user2  {"age":0,"birthday":{"date":21,"day":2,"hours":8,"minutes":30,"month":4,"seconds":53,"time":1558398653824,"timezoneOffset":-480,"year":119},"companyName":"小米","id":2,"name":"Lisi","remark":"","sex":"Female"}
+
+public class DateJsonValueProcessor implements JsonValueProcessor {
+
+    private String formatDateTime = "yyyy-MM-dd HH:mm:ss";
+
+    private String formatDate = "yyyy-MM-dd";
+
+    public DateJsonValueProcessor() {
+
+    }
+
+    public DateJsonValueProcessor(String format) {
+        this.formatDateTime = format;
+    }
+
+    @Override
+    public Object processArrayValue(Object value, JsonConfig jsonConfig) {
+        String[] obj = {};
+        if (value instanceof Date[]) {
+            SimpleDateFormat sf = new SimpleDateFormat(formatDateTime);
+            Date[] dates = (Date[]) value;
+            obj = new String[dates.length];
+            for (int i = 0; i < dates.length; i++) {
+                obj[i] = sf.format(dates[i]);
+            }
+        }
+        return obj;
+    }
+
+    @Override
+    public Object processObjectValue(String key, Object value, JsonConfig jsonConfig) {
+        if (value instanceof Date) {
+            String str = "";
+            if (Objects.equals(key, "checkDate") || Objects.equals(key, "validUntil")) {
+                str = new SimpleDateFormat(formatDate).format((Date) value);
+            } else {
+                str = new SimpleDateFormat(formatDateTime).format((Date) value);
+            }
+            return str;
+        }
+        return value;
+    }
+}
+```
+
