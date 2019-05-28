@@ -380,3 +380,23 @@ public class DateJsonValueProcessor implements JsonValueProcessor {
 }
 ```
 
+## 4. 设置忽略某个字段
+
+### 4-1. FastJson转Json字符串时，忽略指定属性
+
+### 4-1-1. 使用注解
+
+```java
+@JSONField(serialize = false)
+```
+
+#### 4-1-2. Filter指定序列化的字段
+
+```java
+SimplePropertyPreFilter filter = new SimplePropertyPreFilter(FastJsonInputBean.class, "contractTemplateId");
+ System.out.println("filter忽略contractTemplateId属性:"+JSONObject.toJSONString(inputBean, filter));
+```
+
+### 4-2. JackSon忽略字段
+
+使用注解`@JsonIgnoreProperties`（作用在对象上）或者`@JsonIgnore`(作用在属性上)
