@@ -370,6 +370,55 @@ FreeMarker 本身带错误控制器
 
 
 
+## 使用技巧
+
+### 如何避免对象/值为空时报错
+
+方案1
+
+```xml
+<#if user.name?exists>  
+ //TO DO  
+</#if>  
+  
+<#if user.age??>  
+ //TO DO  
+</#if>  
+```
+
+方案2
+
+```xml
+通过设置默认值${name!''}来避免对象为空的错误。如果name为空，就以默认值（“!”后的字符）显示。
+```
+
+首选
+
+对象user，name为user的属性的情况，user，name都有可能为空，那么可以写成**${(user.name)!''}**,表示user或者name为null，都显示为空。判断为空
+
+```xml
+<#if (user.name)??>
+……
+</#if>
+```
+
+示例：
+
+```xml
+当user.name为null 
+${user.name}，异常 
+${user.name!},显示空白 
+${user.name!'vakin'}，若user.name不为空则显示本身的值，否则显示vakin 
+${user.name?default('vakin')}，同上 
+${user.name???string(user.name,'vakin')},同上
+```
+
+
+
+
+
+
+
 ## 参考
 
 [FreeMarker 中文官方参考手册](http://freemarker.foofun.cn/toc.html)
