@@ -58,3 +58,43 @@ File -> Setting -> Keymap
 
 ## 4. 使用插件
 
+### 4-1. ignore插件
+
+**安装**
+
+File-->Settings-->Plugins
+
+![](https://raw.githubusercontent.com/hyman213/FigureBed/master/2019/06/20190603202534.png)
+
+
+
+**使用**
+
+点中项目右键，新建`.gitignore`文件
+
+![](https://raw.githubusercontent.com/hyman213/FigureBed/master/2019/06/20190603203356.png)
+
+### 4-2. Lombok Plugin
+
+
+
+
+
+### 4-3. MyBatisX
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
