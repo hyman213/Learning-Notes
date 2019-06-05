@@ -5,6 +5,7 @@
 * Alt+Shift+R    (Refactor | Rename)
 * Ctrl+Alt+T    surrounded with try catch
 * Alt + Insert  （generate get and set）
+* Ctrl + T    查看类的子类
 
 
 
