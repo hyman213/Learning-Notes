@@ -77,9 +77,24 @@ File-->Settings-->Plugins
 
 ### 4-2. Lombok Plugin
 
+**安装**
 
+打开IDEA的Setting –> 选择Plugins选项 –> 选择Browse repositories –> 搜索lombok –> 点击安装 –> 安装完成重启IDEA –> 安装成功
 
+**使用**
 
+项目使用lombok插件时需引入依赖
+
+```xml
+<dependency> 
+    <groupId>org.projectlombok</groupId> 
+    <artifactId>lombok</artifactId> 
+    <version>${lombok.version}</version> 
+    <scope>provided</scope> 
+</dependency>
+```
+
+更多使用技巧参考
 
 ### 4-3. MyBatisX
 
