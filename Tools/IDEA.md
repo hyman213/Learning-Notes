@@ -1,37 +1,62 @@
-# IDEA使用技巧总结
+# IDEA
 
-## 1. 快捷键
+## 安装破解
 
-* Alt+Shift+R    (Refactor | Rename)
-* Ctrl+Alt+T    surrounded with try catch
-* Alt + Insert  （generate get and set）
-* Ctrl + T    查看类的子类
+参考:
+[IntelliJ IDEA Ultimate 2018.5 中文激活特别版](https://www.jb51.net/softs/598467.html)
 
+注册码获取[http://idea.lanyus.com](http://idea.lanyus.com)
 
-
-
-
-## 2. 必备设置
-
-### 2-1. 快捷键设置
-
-File -> Setting -> Keymap
+## 快捷键
 
 
-
-
+| 编号 |              功能              |      快捷键       |
+| :--: | :----------------------------: | :---------------: |
+|  1   |            自动补全            |     Alt+Enter     |
+|  2  |            全文搜索            | Shift（快速双击） |
+|  3  | 代码生成（get/set/overried..） |    Alt+insert     |
+|  4  |            surrounded with try catch            |    Ctrl+Alt+T     |
+|  5  |             重命名             |     Alt+Shift+R      |
+|  6  |            查看类的子类            |       Ctrl + T     |
 
 
 
-## 3. 开发设置
 
-### 3-1. SpringBoot热部署设置
+## 常用设置
 
-* 1) File/Setting/Build,Execution,Deployment/Compiler, 勾选Build project automatically
+* 快捷键设置
+  1. File -> Setting -> Keymap（习惯使用Eclipse）
+     1. 格式化代码 - ReformatCode - Ctrl + Shift + F || Ctrl + Alt + L。选中文件、文件夹右键ReFormat Code
+* 字体
+  1. 编辑区字体： File-->Settings-->Editor-->Font
+  2. 控制台字体： File-->Settings-->Editor-->Color Scheme-->Console Font
+* 编码
+  1.  File-->Settings-->Editor-->File Encodings
+* maven
+  1. File-->Settings-->Build,Execution,Deployment-->Build Tools-->Maven
+* 插件
+  1. File-->Settings-->Plugins
 
-* 2) 组合键：Shift+ALT+Ctrl+/ ，选择“Registry”，回车，找到“complier.automake.allow.when.app.running” 勾选
+参考：
 
-* 3) pom.xml文件配置
+[字体、编码设置](https://blog.csdn.net/frankcheng5143/article/details/50779149)
+[常用设置](https://blog.csdn.net/yelove1990/article/details/51541327)
+[快捷键](https://blog.csdn.net/shijiebei2009/article/details/44725733)
+
+
+
+
+
+## 开发设置
+
+### SpringBoot热部署设置
+
+1. File/Setting/Build,Execution,Deployment/Compiler, 勾选Build project automatically
+
+2. 组合键：Shift+ALT+Ctrl+/ ，选择“Registry”，回车，找到“complier.automake.allow.when.app.running” 勾选
+
+3. pom.xml文件配置
+
 
   ```xml
   <!--热部署插件-->
@@ -57,9 +82,15 @@ File -> Setting -> Keymap
 
   
 
-## 4. 使用插件
+### @Autowired报错
 
-### 4-1. ignore插件
+IDEA差错功能过于强大,关闭检查Editor-Inspector-Spring-Spring Core-Code-AutoWiring for Bean class
+
+
+
+## 使用插件
+
+### ignore插件
 
 **安装**
 
@@ -75,7 +106,7 @@ File-->Settings-->Plugins
 
 ![](https://raw.githubusercontent.com/hyman213/FigureBed/master/2019/06/20190603203356.png)
 
-### 4-2. Lombok Plugin
+### Lombok Plugin
 
 **安装**
 
@@ -96,7 +127,7 @@ File-->Settings-->Plugins
 
 更多使用技巧参考
 
-### 4-3. MyBatisX
+### MyBatisX
 
 
 
