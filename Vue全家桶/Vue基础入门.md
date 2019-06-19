@@ -4,7 +4,7 @@
 
 Vue (读音 /vjuː/，类似于 **view**) 是一套用于构建用户界面的**渐进式框架**。
 
-## 初始
+## 初识Vue
 
 ### 如何使用Vue
 
@@ -288,19 +288,52 @@ Mustache 标签将会被替代为对应数据对象上 `msg` 属性的值。无�
 
 #### `v-for`
 
-```vue
-<div id="app-4">
-  <ol>
-    <li v-for="todo in todos">
-      {{ todo.text }}
-    </li>
-  </ol>
+**`v-for`使用一个数组。**其中`items`是源数据数组，`item`是被迭代的数组元素的别名。`in`可以用`of`代替
+
+建议尽可能在使用 `v-for` 时提供 `key` attribute
+
+```html
+<ul id="example-1">
+  <li v-for="item in items" :key="item.id">
+    {{ item.message }}
+  </li>
+</ul>
+
+<!--支持可选的第二个参数-->
+<ul id="example-2">
+  <li v-for="(item, index) in items">
+    {{ index }} - {{ item.message }}
+  </li>
+</ul>
+```
+
+**`v-for`使用对象。**可以用户遍历对象的属性，同样的，可以有一个可选的第二参数：属性名，还可以第三个参数作为索引
+
+```html
+<div v-for="(value, name, index) in object">
+  {{ index }}. {{ name }}: {{ value }}
 </div>
 ```
 
+**数组更新检测**
+
+变异方法
+
+- `push()`
+- `pop()`
+- `shift()`
+- `unshift()`
+- `splice()`
+- `sort()`
+- `reverse()`
+
+显示过滤/排序后的结果
+可以创建一个计算属性，来返回过滤后或排序后的数组
+
+
 #### `v-on`
 
-添加一个事件监听器, 
+添加一个事件监听器
 
 ```vue
 <div id="app-5">
@@ -323,6 +356,65 @@ Mustache 标签将会被替代为对应数据对象上 `msg` 属性的值。无�
 </script>
 ```
 
+有时也需要在内联语句处理器中访问原始的 DOM 事件。可以用特殊变量 `$event` 把它传入方法
+
+```vue
+<button v-on:click="warn('Form cannot be submitted yet.', $event)">
+  Submit
+</button>
+
+<script>
+// ...
+methods: {
+  warn: function (message, event) {
+    // 现在我们可以访问原生事件对象
+    if (event) event.preventDefault()
+    alert(message)
+  }
+}
+</script>
+```
+
+`v-on` 提供了**事件修饰符**，修饰符是由点开头的指令后缀来表示的。
+
+- `.stop`
+- `.prevent`
+- `.capture`
+- `.self`
+- `.once`
+- `.passive`
+
+```html
+<!-- 阻止单击事件继续传播 -->
+<a v-on:click.stop="doThis"></a>
+
+<!-- 提交事件不再重载页面 -->
+<form v-on:submit.prevent="onSubmit"></form>
+
+<!-- 修饰符可以串联 -->
+<a v-on:click.stop.prevent="doThat"></a>
+
+<!-- 只有修饰符 -->
+<form v-on:submit.prevent></form>
+
+<!-- 添加事件监听器时使用事件捕获模式 -->
+<!-- 即元素自身触发的事件先在此处理，然后才交由内部元素进行处理 -->
+<div v-on:click.capture="doThis">...</div>
+
+<!-- 只当在 event.target 是当前元素自身时触发处理函数 -->
+<!-- 即事件不是从内部元素触发的 -->
+<div v-on:click.self="doThat">...</div>
+```
+
+**按键修饰符**
+
+Vue 允许为 `v-on` 在监听键盘事件时添加按键修饰符
+
+```html
+<!-- 只有在 `key` 是 `Enter` 时调用 `vm.submit()` -->
+<input v-on:keyup.enter="submit">
+```
+
 #### `v-model`
 
 实现**表单**输入和应用状态之间的双向绑定，在表单元素外使用不起作用
@@ -343,31 +435,34 @@ Mustache 标签将会被替代为对应数据对象上 `msg` 属性的值。无�
 </script>
 ```
 
+`v-model` 会忽略所有表单元素的 `value`、`checked`、`selected` 特性的初始值而总是将 Vue 实例的数据作为数据来源。你应该通过 JavaScript 在组件的 `data` 选项中声明初始值。
 
+**修饰符**
 
+* `.lazy`
 
+在默认情况下，`v-model` 在每次 `input` 事件触发后将输入框的值与数据进行同步 (除了[上述](https://cn.vuejs.org/v2/guide/forms.html#vmodel-ime-tip)输入法组合文字时)。你可以添加 `lazy` 修饰符，从而转变为使用 `change` 事件进行同步
 
-**指令的缩写**
-
-**`v-bind`的缩写**
-
-```vue
-<!-- 完整语法 -->
-<a v-bind:href="url">...</a>
-
-<!-- 缩写 -->
-<a :href="url">...</a>
+```html
+<!-- 在“change”时而非“input”时更新 -->
+<input v-model.lazy="msg" >
 ```
 
-**`v-on`的缩写**
+* `.number`
 
-```vue
-<!-- 完整语法 -->
-<a v-on:click="doSomething">...</a>
+自动将用户的输入值转为数值类型
 
-<!-- 缩写 -->
-<a @click="doSomething">...</a>
+```html
+<input v-model.number="age" type="number">
 ```
+
+* `.trim`
+
+```html
+<input v-model.trim="msg">
+```
+
+
 
 ## 计算属性和侦听器
 
@@ -588,7 +683,102 @@ data: {
 
 
 
+## 组件基础
 
+```javascript
+// 定义一个名为 button-counter 的新组件
+Vue.component('button-counter', {
+  data: function () {
+    return {
+      count: 0
+    }
+  },
+  template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+})
+```
+
+
+
+```vue
+<div id="components-demo">
+  <button-counter></button-counter>
+</div>
+
+<script>
+new Vue({ el: '#components-demo' })
+</script>
+```
+
+### 基本点
+
+**每个组件必须只有一个根元素**
+
+**data必须是一个函数，在非组件中data是一个对象，组件中data必须是一个函数**
+
+**Prop 是你可以在组件上注册的一些自定义特性。当一个值传递给一个 prop 特性的时候，它就变成了那个组件实例的一个属性。**
+
+```javascript
+Vue.component('blog-post', {
+  props: ['title'],
+  template: '<h3>{{ title }}</h3>'
+})
+```
+
+
+
+### 父组件监听子组件事件
+
+子组件通过调用内建的`$emit`方法传入事件名
+
+```html
+<button v-on:click="$emit('enlarge-text')">
+  Enlarge text
+</button>
+```
+
+父组件通过v-on绑定该方法名，即可接收子组件的事件
+
+```html
+<blog-post
+  ...
+  v-on:enlarge-text="postFontSize += 0.1"
+></blog-post>
+```
+
+该方式子组件也可通过事件抛出一个参数，传递给父组件。使用`$event`
+
+子组件中
+
+```html
+<button v-on:click="$emit('enlarge-text', 0.1)">
+  Enlarge text
+</button>
+```
+
+父组件
+
+```html
+<blog-post
+  ...
+  v-on:enlarge-text="postFontSize += $event"
+></blog-post>
+
+如果是一个方法
+<blog-post
+  ...
+  v-on:enlarge-text="onEnlargeText"
+></blog-post>
+
+
+<script>
+...
+methods: {
+  onEnlargeText: function (enlargeAmount) {
+    this.postFontSize += enlargeAmount
+  }
+}
+</script>
+```
 
 
 
