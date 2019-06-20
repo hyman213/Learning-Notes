@@ -1,5 +1,7 @@
 package io.hyman.algorithm;
 
+import java.util.Arrays;
+
 /**
  * @Description:
  * @author: Hyman
@@ -10,17 +12,58 @@ public class QuickSort {
 
     public static void main(String[] args) {
         int[] list = {6, 1, 2, 7, 9, 3, 4, 5, 10, 8};
-        System.out.println("************快速排序************");
-        System.out.println("排序前：");
-        display(list);
-        System.out.println("排序过程：");
-        quickSort(list, 0, list.length - 1);
-        System.out.println("排序后：");
-        display(list);
+//        System.out.println("************快速排序************");
+//        System.out.println("排序前：");
+//        display(list);
+//        System.out.println("排序过程：");
+//        quickSort(list, 0, list.length - 1);
+//        System.out.println("排序后：");
+//        display(list);
+
+        quickSort2(list, 0, list.length - 1);
+    }
+
+
+    /**
+     * 快速排序（左右指针法）
+     *
+     * @param arr  待排序数组
+     * @param low  左边界
+     * @param high 右边界
+     */
+    public static void quickSort2(int arr[], int low, int high) {
+        if (arr == null || arr.length <= 0) {
+            return;
+        }
+        if (low >= high) {
+            return;
+        }
+
+        int left = low;
+        int right = high;
+
+        int key = arr[left];
+
+        while (left < right) {
+            while (left < right && arr[right] >= key) {
+                right--;
+            }
+            while (left < right && arr[left] <= key) {
+                left++;
+            }
+            if (left < right) {
+                swap(arr, left, right);
+                System.out.println("Sorting 1: " + Arrays.toString(arr));
+            }
+        }
+        swap(arr, low, left);
+        System.out.println("Sorting 2: " + Arrays.toString(arr));
+        quickSort2(arr, low, left - 1);
+        quickSort2(arr, left + 1, high);
     }
 
     /**
-     * 快速排序算法
+     * 快速排序算法: 挖坑法
      */
     public static void quickSort(int[] list, int left, int right) {
         if (left < right) {
