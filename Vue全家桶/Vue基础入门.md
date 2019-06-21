@@ -4,7 +4,14 @@
 
 Vue (读音 /vjuː/，类似于 **view**) 是一套用于构建用户界面的**渐进式框架**。
 
-## 初识Vue
+## Vue
+
+- Vue树状表格tree-table-vue :wave:   [Github](https://github.com/lison16/tree-table-vue) ； 另外一款也不错 [vue-tree-grid](https://github.com/huanglong6828/vue-tree-grid)
+
+- 高精度计算big.js :+1: [Github](https://github.com/MikeMcl/big.js)    [API文档](http://mikemcl.github.io/big.js)
+- 
+
+## 初识Vue             
 
 ### 如何使用Vue
 

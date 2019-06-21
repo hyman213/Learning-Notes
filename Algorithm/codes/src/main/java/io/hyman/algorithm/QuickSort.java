@@ -53,11 +53,11 @@ public class QuickSort {
             }
             if (left < right) {
                 swap(arr, left, right);
-                System.out.println("Sorting 1: " + Arrays.toString(arr));
+//                System.out.println("Sorting 1: " + Arrays.toString(arr));
             }
         }
         swap(arr, low, left);
-        System.out.println("Sorting 2: " + Arrays.toString(arr));
+//        System.out.println("Sorting 2: " + Arrays.toString(arr));
         quickSort2(arr, low, left - 1);
         quickSort2(arr, left + 1, high);
     }
@@ -94,13 +94,13 @@ public class QuickSort {
                 right--;
             }
             swap(list, left, right);
-            display(list);
+//            display(list);
             // 从左往右找到比基准数大的数，然后将该数与基准数交换位置
             while (left < right && list[left] <= first) {
                 left++;
             }
             swap(list, left, right);
-            display(list);
+//            display(list);
         }
         // 结束后基准数位于left位置
         return left;
