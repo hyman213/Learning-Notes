@@ -1,4 +1,4 @@
-package io.hyman.algorithm;
+package io.hyman.algorithm.exchange;
 
 import java.util.Arrays;
 
