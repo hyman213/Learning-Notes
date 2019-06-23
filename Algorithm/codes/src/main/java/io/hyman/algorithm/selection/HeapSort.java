@@ -16,7 +16,6 @@ public class HeapSort {
         System.out.println("排序前：" + Arrays.toString(list));
         heapSort(list);
         System.out.println("排序后：" + Arrays.toString(list));
-
     }
 
     /**
