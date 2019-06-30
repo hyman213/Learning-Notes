@@ -102,4 +102,19 @@ public class MyLinkedList {
         return size;
     }
 
+    public Node getHeadNode() {
+        return headNode;
+    }
+
+    public void setHeadNode(Node headNode) {
+        this.headNode = headNode;
+    }
+
+    public Node getTempNode() {
+        return tempNode;
+    }
+
+    public void setTempNode(Node tempNode) {
+        this.tempNode = tempNode;
+    }
 }
