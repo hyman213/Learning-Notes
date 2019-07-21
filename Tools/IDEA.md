@@ -36,6 +36,8 @@
   1. File-->Settings-->Build,Execution,Deployment-->Build Tools-->Maven
 * 插件
   1. File-->Settings-->Plugins
+* 配色方案下载
+  * http://www.easycolor.cc/intelliJidea/list.html
 
 参考：
 
@@ -131,7 +133,17 @@ File-->Settings-->Plugins
 
 
 
+### RestfulToolkit
 
+RestfulToolkit是IDEA的一个插件，主要作用就是提供一个窗口，该窗口展示你项目定义的所有对外的URL，并且点击对应的URL可以跳入指定方法，同时提供接口测试功能。
+
+**安装**
+
+![](https://raw.githubusercontent.com/hyman213/FigureBed/master/2019/07/20190721144727.png)
+
+**使用**
+
+![](https://raw.githubusercontent.com/hyman213/FigureBed/master/2019/07/20190721145045.png)
 
 
 
