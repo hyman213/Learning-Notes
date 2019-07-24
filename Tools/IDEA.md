@@ -147,9 +147,11 @@ RestfulToolkit是IDEA的一个插件，主要作用就是提供一个窗口，�
 
 
 
+### Grep Console
 
+可精细调整控制台的显示
 
-
+[官网](http://plugins.jetbrains.com/plugin/7125-grep-console)
 
 
 
