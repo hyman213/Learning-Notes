@@ -721,6 +721,52 @@ protected void doDispatch(HttpServletRequest request, HttpServletResponse respon
 }
 ```
 
+示例
+
+```java
+@Slf4j
+public class PerformanceInteceptor implements HandlerInterceptor {
+
+    private ThreadLocal<StopWatch> stopWatch = new ThreadLocal<>();
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        StopWatch sw = new StopWatch();
+        stopWatch.set(sw);
+        sw.start();
+        return true;
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        stopWatch.get().stop();
+        stopWatch.get().start();
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        StopWatch sw = stopWatch.get();
+        sw.stop();
+        String method = handler.getClass().getSimpleName();
+        if (handler instanceof HandlerMethod) {
+            String beanType = ((HandlerMethod) handler).getBeanType().getName();
+            String methodName = ((HandlerMethod) handler).getMethod().getName();
+            method = beanType + "." + methodName;
+        }
+        log.info("{};{};{};{};{}ms;{}ms;{}ms", request.getRequestURI(), method,
+                response.getStatus(), ex == null ? "-" : ex.getClass().getSimpleName(),
+                sw.getTotalTimeMillis(), sw.getTotalTimeMillis() - sw.getLastTaskTimeMillis(),
+                sw.getLastTaskTimeMillis());
+        stopWatch.remove();
+    }
+
+}
+```
+
+> StopWatch的使用 org.springframework.util.StopWatch
+
+
+
 **拦截器的配置方式**
 
 常规方法
