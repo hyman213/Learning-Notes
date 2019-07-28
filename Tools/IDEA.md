@@ -153,9 +153,31 @@ RestfulToolkit是IDEA的一个插件，主要作用就是提供一个窗口，�
 
 [官网](http://plugins.jetbrains.com/plugin/7125-grep-console)
 
+### Mybatis log plugin
 
+> 可以显示实际执行的SQL，方便报错时的调试
 
+**安装**
 
+打开IDEA的Setting –> 选择Plugins选项 –> 选择Browse repositories –> 搜索mybatis log –> 点击安装 –> 安装完成重启IDEA –> 安装成功
 
+**使用**
 
+在控制台会多出一个MyBatis Log，里面显示了执行的SQL。如果吗，没有，可以鼠标右键`Restore sql from selection`
+
+![](https://raw.githubusercontent.com/hyman213/FigureBed/master/2019/07/20190728175634.png)
+
+### GsonFormat
+
+> 可以将json一键生成Bean对象
+
+**安装**
+
+打开IDEA的Setting –> 选择Plugins选项 –> 选择Browse repositories –> 搜索gsonformat –> 点击安装 –> 安装完成重启IDEA –> 安装成功
+
+**使用**
+
+复制你要解析的json，然后alt+insert弹出如下界面 或者使用快捷键 alt+s
+
+![](https://raw.githubusercontent.com/hyman213/FigureBed/master/2019/07/20190728180400.png)
 
