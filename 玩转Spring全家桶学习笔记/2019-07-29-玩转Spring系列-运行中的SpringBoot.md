@@ -231,29 +231,95 @@ public class CoffeeIndicator implements HealthIndicator {
 
 ## Micrometer - 获取运行数据
 
+[官方网站](<https://micrometer.io/>)
 
+[使用 Micrometer 记录 Java 应用性能指标](<https://www.ibm.com/developerworks/cn/java/j-using-micrometer-to-record-java-metric/index.html>)
 
+> Micrometer provides a simple facade over the instrumentation clients for the most popular monitoring systems, allowing you to instrument your JVM-based application code without vendor lock-in. Think SLF4J, but for application metrics! Application metrics recorded by Micrometer are intended to be used to observe, alert, and react to the current/recent operational state of your environment.
 
+Micrometer 的作用可以类比于 SLF4J 在 Java 日志记录中的作用。
 
+**Micrometer 简介**
 
+Micrometer 为 Java 平台上的性能数据收集提供了一个通用的 API，应用程序只需要使用 Micrometer 的通用 API 来收集性能指标即可。Micrometer 会负责完成与不同监控系统的适配工作。这就使得切换监控系统变得很容易。Micrometer 还支持推送数据到多个不同的监控系统。
 
+在 Java 应用中使用 Micrometer 非常的简单。只需要在 Maven 或 Gradle 项目中添加相应的依赖即可。Micrometer 包含如下三种模块，分组名称都是 io.micrometer：
 
+- 包含数据收集 SPI 和基于内存的实现的核心模块 `micrometer-core`。
+- 针对不同监控系统的实现模块，如针对 Prometheus 的 `micrometer-registry-prometheus`。
+- 与测试相关的模块 `micrometer-test`。
 
+在 Java 应用中，只需要根据所使用的监控系统，添加所对应的模块即可。比如，使用 Prometheus 的应用只需要添加`micrometer-registry-prometheus` 模块即可。模块 `micrometer-core` 会作为传递依赖自动添加。
 
+**核心概念**
 
+- 计量器（Meter）
 
+- 计量器注册表（MeterRegistry）。
 
+  计量器表示的是需要收集的性能指标数据，而计量器注册表负责创建和维护计量器。每个监控系统有自己独有的计量器注册表实现。模块 `micrometer-core` 中提供的类 `SimpleMeterRegistry` 是一个基于内存的计量器注册表实现。`SimpleMeterRegistry` 不支持导出数据到监控系统，主要用来进行本地开发和测试。
 
+## Spring Boot Admin
 
+为Spring Boot应用程序提供一套管理界面，它在Spring Boot Actuator的基础上提供简洁的可视化WEB UI。
 
+主要功能：
 
+- 集中展示应用程序Actuator相关的内容
+- 变更通知
 
+## HTTP/2
 
+**配置支持HTTPS**
 
+**生成证书文件**
 
+命令：
 
+`keytool -genkey -alias 别名`
 
+-storetype 仓库类型 -keyalg 算法 -keysize 长度
 
+-keystore 文件名 -validity 有效期
+
+仓库类型：JKS、JCEKS、PKCS12等
+
+算法：RSA、DSA等
+
+长度：如2048
+
+## 认识可执行Jar
+
+- Jar描述, META-INF/MANIFEST.MF
+- Spring Boot Loader, org/springframework/boot/loader
+- 项目内容，BOOT-INF/classes
+- 项目依赖,  BOOT-INF/lib
+
+![](https://raw.githubusercontent.com/hyman213/FigureBed/master/2019/07/20190730213508.png)
+
+**程序的入口**
+
+Jar的启动类
+
+- MANIFEST.MF
+  - Main-Class: org.springframework.boot.loader.JarLaucher
+
+项目的主类
+
+- `@SpringApplication`
+- MANIFEST.MF
+  - Start-Class
+
+## 将Spring Boot应用打包成Docker镜像
+
+**什么是Docker镜像**
+
+- 是静态的只读模版
+- 包含构建Docker容器的指令
+- 是分层的
+- 通过Dockerfile来创建镜像
+
+![](https://raw.githubusercontent.com/hyman213/FigureBed/master/2019/07/20190730214039.png)
 
 
 
