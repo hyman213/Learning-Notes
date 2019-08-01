@@ -29,7 +29,7 @@
 - 微服务 - 以一组小型服务的形式来部署应用
 - 容器 - 提供比传统虚拟机更高的效率
 
-## The Twelve-Factor App
+## The Twelve-Factor App - 十二要素应用宣言
 
 [12-Factor App简体中文](<https://12factor.net/zh_cn/>)
 
@@ -136,6 +136,71 @@
 
 
 ## Spring Cloud的组成部分
+
+> Spring Cloud provides tools for developers to quickly build some of the common patterns in distributed systems (e.g. configuration management, service discovery, circuit breakers, intelligent routing, micro-proxy, control bus, one-time tokens, global locks, leadership election, distributed sessions, cluster state)
+>
+> Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具（例如配置管理，服务发现，断路器，智能路由，微代理，控制总线）
+
+![](https://raw.githubusercontent.com/hyman213/FigureBed/master/2019/07/20190731083758.png)
+
+**Spring Cloud的主要功能**
+
+- 服务发现
+- 服务网关
+- 服务熔断
+- 分布式消息
+- 配置服务
+- 分布式跟踪
+- 服务安全
+- 各种云平台支持
+
+**Spring Cloud的版本号规则**
+
+[Spring-cloud-dependencies版本列表](<https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies>)
+
+- 版本命名
+
+Spring Cloud是一个拥有诸多子项目的大型综合项目，原则上其子项目也都维护着自己的发布版本号。那么每一个Spring Cloud的版本都会包含不同的子项目版本，为了要管理每个版本的子项目清单，避免版本名与子项目的发布号混淆，所以没有采用版本号的方式，而是通过命名的方式。
+
+这些版本名字采用了伦敦地铁站的名字，根据字母表的顺序来对应版本时间顺序，比如：最早的Release版本：Angel，第二个Release版本：Brixton，以此类推……
+
+- 版本号
+
+之前所提到的`Angel.SR6`，`Brixton.SR5`中的SR6、SR5就是版本号了。当一个版本的Spring Cloud项目的发布内容积累到临界点或者一个严重bug解决可用后，就会发布一个“service releases”版本，简称SRX版本，其中X是一个递增数字。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
