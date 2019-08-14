@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:utils="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--<bean id="book" class="io.hyman.spring.bean.Book">-->
+        <!--<constructor-arg name="id" value="1"/>-->
+        <!--<constructor-arg name="name" value="三国演义"/>-->
+        <!--<constructor-arg name="price" value="54.00"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="book2" class="io.hyman.spring.bean.Book" scope="prototype">-->
+        <!--<constructor-arg index="0" value="2"/>-->
+        <!--<constructor-arg index="2" value="52.00"/>-->
+        <!--<constructor-arg index="1" value="西游记"/>-->
+    <!--</bean>-->
+    <!--<bean id="book" class="io.hyman.spring.bean.Book" scope="prototype"/>-->
+
+
+
+    <bean id="book3" class="io.hyman.spring.bean.Book">
+        <property name="id" value="3"/>
+        <property name="name" value="水浒传"/>
+        <property name="price" value="55.00"/>
+        <property name="author" ref="author3"/>
+        <property name="hlodings" ref="holdings"/>
+        <property name="descMap" ref="descMap3"/>
+    </bean>
+
+    <utils:map id="descMap3">
+        <entry key="ch01" value="张天师祈禳瘟疫 洪太尉误走妖魔"/>
+        <entry key="ch02" value="王教头私走延安府 九纹龙大闹史家村"/>
+    </utils:map>
+
+    <utils:list id="holdings">
+        <value>ShenZhen</value>
+        <value>HangZhou</value>
+    </utils:list>
+
+    <bean id="author3" class="io.hyman.spring.bean.Person">
+        <property name="id" value="3"/>
+        <property name="name" value="LuoGuanZhong"/>
+        <property name="dynasty" value="Ming Dynasty"/>
+    </bean>
+
+
+
+    <bean id="author4" class="io.hyman.spring.bean.Person">
+        <property name="id" value="4"/>
+        <property name="name" value="CaoXueQin"/>
+        <property name="dynasty" value="Qing Dynasty"/>
+    </bean>
+
+    <bean id="book4" class="io.hyman.spring.bean.Book"
+          p:id="4" p:name="红楼梦" p:price="62.00" p:author-ref="author4"/>
+
+    <bean class="io.hyman.spring.bean.BookFactory"
+          id="book5" factory-method="getInstance"/>
+
+    <bean class="io.hyman.spring.bean.BookFactory2" id="bookFactory2"/>
+    <bean class="io.hyman.spring.bean.Book" id="book6" factory-bean="bookFactory2" factory-method="getInstance"/>
+
+</beans>
