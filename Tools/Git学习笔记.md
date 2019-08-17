@@ -401,3 +401,8 @@ git branch --set-upstream-to dev origin/dev
 ![](https://raw.githubusercontent.com/hyman213/FigureBed/master/2019/05/20190507214432.png)
 
 ![](https://raw.githubusercontent.com/hyman213/FigureBed/master/2019/05/20190507214558.png)
+
+
+
+[通过游戏的方式学习Git](https://learngitbranching.js.org/)
+
