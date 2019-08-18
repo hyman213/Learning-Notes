@@ -610,8 +610,129 @@ docker run --name tomcat -p 8091:8080 -v $PWD/test:/usr/local/tomcat/webapps/tes
 -p 8091:8080：将容器的8080端口映射到主机的8091端口
 -v $PWD/test:/usr/local/tomcat/webapps/test：将主机中当前目录下的test挂载到容器的/test
 
+# 进入容器，命令行
+$ docker exec -it tomcat /bin/bash
+
 # 浏览器通过IP+PORT(8091)请求, 就可以看到Tomcat欢迎页
 ```
+
+### Python
+
+```shell
+$ docker search python
+$ docker pull python:3.5
+# 创建python主目录: usr/local/python
+$ mkdir /usr/local/python/myapp
+# 在myapp目录下创建一个hello.py文件
+#!/usr/bin/python
+
+print("Hello, World!");
+# 运行容器
+$ cd /usr/local/python/
+$ docker run -v $PWD/myapp:/usr/src/myapp -w /usr/src/myapp python:3.5 python hello.py
+
+命令说明：
+-v $PWD/myapp:/usr/src/myapp :将主机中当前目录下的myapp挂载到容器的/usr/src/myapp
+-w /usr/src/myapp :指定容器的/usr/src/myapp目录为工作目录
+python helloworld.py :使用容器的python命令来执行工作目录中的helloworld.py文件
+```
+
+### Redis
+
+
+
+```shell
+ $ docker pull redis:3.2
+ $ mkdir /usr/local/redis
+ $ cd /usr/local/redis
+ $ docker run --name redis -p 6379:6379 -v $PWD/data:/data  -d redis:3.2 redis-server --appendonly yes
+ 
+ 命令说明：
+ 
+-p 6379:6379 : 将容器的6379端口映射到主机的6379端口
+
+-v $PWD/data:/data : 将主机中当前目录下的data挂载到容器的/data
+
+redis-server --appendonly yes : 在容器执行redis-server启动命令，并打开redis持久化配置
+
+# 使用redis镜像执行redis-cli命令连接到刚启动的容器
+$ docker exec -it redis redis-cli
+```
+
+
+
+### MongoDB
+
+```shell
+$ docker pull mongo:3.2
+$ mkdir /usr/local/mongo
+$ cd /usr/local/mongo/
+$ docker run --name mongo -p 27017:27017 -v $PWD/db:/data/db -d mongo:3.2
+命令说明：
+-p 27017:27017 :将容器的27017 端口映射到主机的27017 端口
+-v $PWD/db:/data/db :将主机中当前目录下的db挂载到容器的/data/db，作为mongo数据存储目录
+
+# 使用mongo镜像执行mongo 命令连接到刚启动的容器
+docker run -it mongo:3.2 mongo --host 172.17.0.1
+```
+
+
+
+### Apache
+
+```shell
+# 拉取httpd
+$ docker pull httpd
+```
+
+
+
+## Docker命令大全
+
+### 容器生命周期管理
+
+- run
+- start/stop/restart
+- kill
+- rm
+- pause/unpause
+- create
+- exec
+
+### 容器操作
+
+- ps
+- inspect
+- top
+- attach
+- events
+- logs
+- wait
+- export
+- port
+
+### 容器rootfs命令
+
+- commit
+- cp
+- diff
+
+### 镜像仓库
+
+- login
+- pull
+- push
+- search
+
+### 本地镜像管理
+
+- rmi
+- tag
+- build
+- history
+- save
+- load
+- import
 
 
 
